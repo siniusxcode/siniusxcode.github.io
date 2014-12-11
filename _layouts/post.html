@@ -1,9 +1,30 @@
 ---
 layout: default
 ---
-<h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }}</p>
 
-<div class="post">
-{{ content }}
+<div class="post-header mb2">
+  <h1>{{ page.title }}</h1>
+  <span class="post-meta">{{ page.date | date: "%-d %B %Y" }}</span><br>
 </div>
+
+<article class="post-content">
+  {{ content }}
+</article>
+
+{% if site.show_post_footers %}
+  {% include post_footer.html %}
+{% endif %}
+
+{% if site.show_related_posts %}
+  <h3 class="related-post-title">Related Posts</h3>
+  {% for post in site.related_posts %}
+    <div class="post ml2">
+      <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
+        <h4 class="post-title">{{ post.title }}</h4>
+        <p class="post-summary">{{ post.summary }}</p>
+      </a>
+    </div>
+  {% endfor %}
+{% endif %}
+
+{% include plugin_disqus.html %}

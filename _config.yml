@@ -1,12 +1,14 @@
-# default
-title: sinius x blog
+# default settings
+title:       sinius x blog
+author:      sinius
 description: 'It''s Now or Never'
-url: http://sinius.net
+baseurl:     ''
+url:         "http://sinius.net"
 
-# setting
+# settings
 markdown: redcarpet
 redcarpet:
-    extensions: 
+    extensions:
       - no_intra_emphasis
       - tables
       - fenced_code_blocks
@@ -15,20 +17,25 @@ redcarpet:
       - superscript
       - hard_wrap
       - with_toc_data
-pygments: true
-permalink: pretty
-paginate: 10
+highlighter: pygments
+permalink:   pretty
+paginate:    5
+sass:
+  compressed: true
 
-# plugin
-disqus: sinius
-google_analytics: UA-49088218-1
-feedburner: sinius
+# optional features
+animated:           false
+show_related_posts: false
+show_post_footers:  false
 
-# link
-author:
-    github: siniusxcode
-    facebook: siniusxworld
-    twitter: siniusxworld
+# plugins
+plugin:
+  disqus: sinius
+  google_analytics: UA-49088218-1
 
-# assets
-assets: /bower_components
+# links
+link:
+  github: siniusxcode
+  linkedin: sinius
+  email: sinius@gmail.com
+  feedburner: sinius
