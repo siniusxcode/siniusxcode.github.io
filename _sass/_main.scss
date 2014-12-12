@@ -115,6 +115,13 @@ body {
   color: #333;
 }
 
+.post-image {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #f3f3f3;
+  max-width: 150px;
+}
+
 .post-footer {
   @extend .italic;
 
@@ -385,6 +392,11 @@ h6,
   .social-icons .left, .social-icons .right {
     text-align: center;
     float: none;
+  }
+
+  .post-image {
+    margin-top: 0;
+    max-width: 75px;
   }
 }
 
