@@ -8,15 +8,19 @@ layout: default
     {% for post in paginator.posts %}
       <div class="post clearfix">
         {% if post.image %}
-        <a href="{{ post.url }}">
-          <img src="{{ post.image }}" alt="{{ post.title }}" class="post-image left">
-        </a>
+        <div class="post-image">
+          <a href="{{ post.url }}">
+            <img src="{{ post.image }}" alt="{{ post.title }}">
+          </a>
+        </div>
         {% endif %}
-        <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
-          <p class="post-meta">{{ post.date | date: "%-d %B %Y" }}</p>
-          <h3 class="h2 post-title">{{ post.title }}</h3>
-          <p class="post-summary">{{ post.summary }}</p>
-        </a>
+        <div class="post-contents">
+          <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
+            <p class="post-meta">{{ post.date | date: "%-d %B %Y" }}</p>
+            <h3 class="h2 post-title">{{ post.title }}</h3>
+            <p class="post-summary">{{ post.summary }}</p>
+          </a>
+        </div/>
       </div>
     {% endfor %}
   </div>

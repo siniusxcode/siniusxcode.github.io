@@ -109,17 +109,32 @@ body {
   padding-bottom: 0;
 }
 
+.post-image {
+  width: 20%;
+  max-width: 150px;
+  float: left;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+  box-sizing: border-box;
+}
+
+.post-image img {
+  border: 1px solid #f3f3f3;  
+}
+
+.post-contents {
+  width: 100%; 
+  float: left;
+}
+
+.post-image + .post-contents {
+  width: 80%;
+}
+
 .post-link .post-title {
   margin-top: 0;
   font-weight: 600;
   color: #333;
-}
-
-.post-image {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-  border: 1px solid #f3f3f3;
-  max-width: 150px;
 }
 
 .post-footer {
@@ -355,22 +370,22 @@ h6,
 @media screen and (max-width: 48em) {
   .h1,
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .h2,
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .h3,
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .h4,
   h4 {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .site-header {
@@ -394,9 +409,8 @@ h6,
     float: none;
   }
 
-  .post-image {
-    margin-top: 0;
-    max-width: 75px;
+  .post-title {
+    font-size: 1em;
   }
 }
 
