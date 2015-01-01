@@ -23,35 +23,7 @@ OS X Yosemite 업그레이드 이후에 [Homebrew](http://brew.sh/index_ko.html)
 
 설치 스크립트는 홈페이지 메인에 있지만 삭제 스크립트는 쉽게 찾을수가 없다. 아래는 [Homebrew FAQ](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/FAQ.md#faq)에서 겨우 찾은 [Homebrew Uninstall 스크립트](https://gist.github.com/mxcl/1173223) ~~([설치는 마음대로지만 삭제는 아니란다...](https://mirror.enha.kr/wiki/%EC%84%B1%20%EC%A0%95%EC%B2%B4%EC%84%B1%EC%9D%84%20%EA%B9%A8%EB%8B%AC%EC%9D%80%20%EC%95%84%EC%9D%B4))~~
 
-```bash
-#!/bin/sh
-# Just copy and paste the lines below (all at once, it won't work line by line!)
-# MAKE SURE YOU ARE HAPPY WITH WHAT IT DOES FIRST! THERE IS NO WARRANTY!
- 
-function abort {
-  echo "$1"
-  exit 1
-}
- 
-set -e
- 
-/usr/bin/which -s git || abort "brew install git first!"
-test -d /usr/local/.git || abort "brew update first!"
- 
-cd `brew --prefix`
-git checkout master
-git ls-files -z | pbcopy
-rm -rf Cellar
-bin/brew prune
-pbpaste | xargs -0 rm
-rm -r Library/Homebrew Library/Aliases Library/Formula Library/Contributions 
-test -d Library/LinkedKegs && rm -r Library/LinkedKegs
-rmdir -p bin Library share/man/man1 2> /dev/null
-rm -rf .git
-rm -rf ~/Library/Caches/Homebrew
-rm -rf ~/Library/Logs/Homebrew
-rm -rf /Library/Caches/Homebrew
-```
+{% gist mxcl/1173223 %}
 
 위 스크립트 실행 후 아래 설치 스크립트를 실행하면 재설치가 완료된다.
 
