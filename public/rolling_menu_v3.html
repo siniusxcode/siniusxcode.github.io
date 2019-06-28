@@ -259,8 +259,8 @@ SOFTWARE.
     <div style="text-align: center;">
     <h1>돌려돌려 메뉴판</h1>
     <form action="" class="form-control nexto color blue">
-        <input id="menu-input" type="text" name="subscribe-box" placeholder="메뉴명" class="input-text" value="한식" onkeypress="if(event.keyCode==13) {refreshMenu(); return false;}" />
-        <input id="radius-input" type="text" name="subscribe-box" placeholder="거리(m)" class="input-text" value="3000" onkeypress="if(event.keyCode==13) {refreshMenu(); return false;}" />
+        <input id="menu-input" type="text" name="subscribe-box" placeholder="메뉴명" class="input-text" value="한식" onkeypress="if(event.keyCode==13) {setMenuWheel(); return false;}" />
+        <input id="radius-input" type="text" name="subscribe-box" placeholder="거리(m)" class="input-text" value="3000" onkeypress="if(event.keyCode==13) {setMenuWheel(); return false;}" />
         <button id="menu-btn" type="button" class="btn color blue">메뉴판세팅</button>
     </form>
     </div> 
