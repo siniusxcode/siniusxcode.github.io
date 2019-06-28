@@ -317,7 +317,7 @@ SOFTWARE.
                 success: function (response) {
                     data = [];
                     $(response.documents).each(function(index, item) {
-                        data.push({label: item.place_name, value: 1, question: '축 당첨!<br/><a href="' + item.place_url + '" target="_blank" style="text-decoration:none; color: #2A80B9">' + item.place_name + '으로 가자!</a>'});
+                        data.push({label: item.place_name, value: 1, question: '당첨!<br/><a href="' + item.place_url + '" target="_blank" style="text-decoration:none; color: #2A80B9">' + item.place_name + '</a>'});
                     });
 
                     data = data.sort(() => Math.random() - 0.5);
