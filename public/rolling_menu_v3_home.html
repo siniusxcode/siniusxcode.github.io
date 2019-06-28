@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>돌려돌려 메뉴판</title>
+    
+<!--
+    
+MIT License
+
+Copyright (c) 2017 Jeremy Rue
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+    
+    <style type="text/css">
+    text{
+        font-family:Helvetica, Arial, sans-serif;
+        font-size:11px;
+        pointer-events:none;
+    }
+    #chart{
+        width:500px;
+        height:500px;
+        top:0;
+        left:0;
+        margin: 0 auto;
+        position: relative;
+    }
+    #question{
+        width:400px;
+        height:500px;
+        top:250px;
+        left:520px;
+        position: absolute;
+    }
+    #question h1{
+        font-size: 50px;
+        font-weight: bold;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        top:50%;
+        -webkit-transform:translate(0,-50%);
+                transform:translate(0,-50%);
+    }
+    .btn{
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin: 0;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 16px;
+        background: transparent;
+        color: #303030;
+        white-space: nowrap;
+        vertical-align: middle;/**/
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-transition: all .2s ease-in-out;
+        -o-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+        background: #fff;
+      }
+      /* Radius */
+      .radius-2{border-radius:2px;}
+      .radius-4{border-radius:4px;}
+      .radius-6{border-radius:6px;}
+      .radius-8{border-radius:8px;}
+
+      /* Colors */
+      .btn-default, .btn-default-border, .default{color:#333;border-color: #CCC;}
+      .btn-primary, .btn-primary-border, .primary{background: #3498DB;color:white;}
+      .btn-success, .btn-success-border, .success{background: #2ECC71;color:white;}
+      .btn-info, .btn-info-border, .info{background: #5BC0DE;color:white;}
+      .btn-warning, .btn-warning-border, .warning{background: #F0AD4E;color:white;}
+      .btn-error, .btn-error-border, .error{background: #E74C3C;color:white;}
+      .btn-link, .btn-link-border, .link{color: #3498DB;}
+
+      /* Btn-Outline */
+      .btn.btn-outline-default, .btn-outline.default{color: #333;border-color: #CCC;}
+      .btn-outline-primary, .btn-outline.primary{color: #3498DB;border-color: #3498DB;}
+      .btn-outline-success, .btn-outline.success{color: #2ECC71;border-color: #2ECC71;}
+      .btn-outline-info, .btn-outline.info{color: #5BC0DE;border-color: #5BC0DE;}
+      .btn-outline-warning, .btn-outline.warning{color: #F0AD4E;border-color: #F0AD4E;}
+      .btn-outline-error, .btn-outline.error{color: #E74C3C;border-color: #E74C3C;}
+      .btn-outline-link, .btn-outline.link{color: #3498DB;}
+
+      .btn.btn-outline-default:hover, .btn.btn-outline.default:hover{background: #CCC;color:#151515;}
+      .btn.btn-outline-primary:hover, .btn.btn-outline.primary:hover{background: #3498DB;color:white;}
+      .btn.btn-outline-success:hover, .btn.btn-outline.success:hover{background: #2ECC71;color:white;}
+      .btn.btn-outline-info:hover, .btn.btn-outline.info:hover{background: #5BC0DE;color:white;}
+      .btn.btn-outline-warning:hover, .btn.btn-outline.warning:hover{background: #F0AD4E;color:white;}
+      .btn.btn-outline-error:hover, .btn.btn-outline.error:hover{background: #E74C3C;color:white;}
+      .btn.btn-outline-link:hover, .btn.btn-outline.link:hover{background: #3498DB;color:white;}
+
+      /* btn:hover */
+      .btn.btn-default:hover{border-color: #8C8C8C;background: #E6E6E6;color: #333;}
+      .btn.btn-primary:hover{border: 1px solid #2980B9;background: #2980B9;}
+      .btn.btn-success:hover{border: 1px solid #27AE60;background: #27AE60;}
+      .btn.btn-info:hover{border: 1px solid #53AFCA;background: #53AFCA;}
+      .btn.btn-warning:hover{border: 1px solid #D39745;background: #D39745;}
+      .btn.btn-error:hover{border: 1px solid #C0392B;background: #C0392B;}
+      .btn.btn-link:hover{text-decoration: underline;}
+
+      .btn.btn-default-border:hover{border-color: black;background: #8C8C8C;color: #fff;}
+      .btn.btn-primary-border:hover{border: 1px solid #3498DB;background: #fff;color: #3498DB;}
+      .btn.btn-success-border:hover{border: 1px solid #1EBC61;background: #fff;color: #1EBC61;}
+      .btn.btn-info-border:hover{border: 1px solid #5BC0DE;background: #fff;color: #5BC0DE;}
+      .btn.btn-warning-border:hover{border: 1px solid #F0AD4E;background: #fff;color: #F0AD4E;}
+      .btn.btn-error-border:hover{border: 1px solid #F35369;background: #fff;color: #F35369;}
+      .btn.btn-link-border:hover{border: 1px solid #3498DB;}
+
+      /*Group*/
+      .btn-group, .form-control{
+        /*position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        width: 100%;*/
+        border:1px solid #8C8C8C;
+        padding:0px;
+        border-radius:8px;
+        background: #8C8C8C;
+        overflow: hidden;
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        vertical-align: middle;
+      }
+      .btn-group>.btn{border:none;border-radius:0;}/*TEST DELETE LATER*/
+      .btn-group>.btn:hover{border:0;}
+      .btn-group>.btn:not(:first-child){margin-left:1px;}
+      .btn-group:not(:first-child)>.btn:not(:first-child){border-bottom-left-radius: 0;border-top-left-radius: 0;}
+      .btn-group:not(:last-child)>.btn:not(:last-child){border-bottom-right-radius: 0;border-top-right-radius: 0;}
+      .btn-group>.btn:not(:first-child){border-left:0;}
+
+      .form-control{
+        border: 1px solid #E0E0E0;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-align: left;
+        font-size: 16px;
+        background: #fff;
+        color: #303030;
+        border-radius: 4px;
+        display:inline-flex;
+      }
+      .form-control>*:not(:last-child){margin: 0 10px 0 0;}
+      .form-control>*:not(:first-child){margin: 0 0 0 10px;}
+      .form-control>*{margin: 0 10px;}
+
+      /* form.form-control.stacked */
+      .form-control.stacked{
+        width: 100%;
+        max-width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        -o-flex: 0 0 auto;
+        flex: 0 0 auto;
+        -webkit-box-direction: normal;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        -o-flex-wrap: wrap;
+        flex-wrap: row wrap;
+        -webkit-box-orient: vertical;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        -o-flex-direction: column;
+        flex-direction: column;
+      }
+      .form-control.stacked>*{margin: 0}
+      .form-control.stacked>:first-child{margin-bottom:5px;}
+      .form-control.stacked>:last-child{margin-top:5px;}
+
+      /* form.form-control.inline */
+      .form-control.inline>*:not(:first-child){margin-left: 15px;}
+      .form-control.inline>*{margin: 0}
+      /* form.form-control.nexto */
+      .form-control.nexto>*:not(:first-child){border-top-left-radius: 0;border-bottom-left-radius: 0;margin-left:-1px;}
+      .form-control.nexto>*:not(:last-child){border-top-right-radius: 0;border-bottom-right-radius: 0;}
+      .form-control.nexto>*{margin: 0}
+      /* form.form-control.color.[color] */
+      .form-control.color.turquoise>*:first-child{border-color: #1abc9c;}
+      .form-control.color.yellow>*:first-child{border-color: #f1c40f;}
+      .form-control.color.green>*:first-child{border-color: #2ecc71;}
+      .form-control.color.orange>*:first-child{border-color: #e67e22;}
+      .form-control.color.blue>*:first-child{border-color: #3498DB;}
+      .form-control.color.red>*:first-child{border-color: #E74C3C;}
+      .form-control.color.purple>*:first-child{border-color: #9b59b6;}
+      .form-control.color.gray>*:first-child{border-color: #ecf0f1;}
+      .form-control.color.dark>*:first-child{border-color: #34495e;}
+      .form-control.color.gray-dark>*:first-child{border-color: #95a5a6;}
+
+      .btn.color{color:white;}
+      .btn.color.turquoise{background: #1abc9c;}
+      .btn.color.sunflower,.btn.color.yellow{background: #f1c40f;}
+      .btn.color.emerland,.btn.color.green{background: #2ecc71;}
+      .btn.color.carrot,.btn.color.orange{background: #e67e22;}
+      .btn.color.peterriver,.btn.color.blue{background: #3498db;}
+      .btn.color.alizarin,.btn.color.red{background: #e74c3c;}
+      .btn.color.amethyst,.btn.color.purple{background: #9b59b6;}
+      .btn.color.clouds,.btn.color.gray{background: #ecf0f1;color:#303030;}
+      .btn.color.wetasphalt,.btn.color.dark{background: #34495e;}
+      .btn.color.concrete,.btn.color.gray-dark{background: #95a5a6;}
+
+      .btn.color.turquoise:hover{background: #16a085;}
+      .btn.color.sunflower:hover,.btn.color.yellow:hover{background: #f39c12;}
+      .btn.color.emerland:hover,.btn.color.green:hover{background: #27ae60;}
+      .btn.color.carrot:hover,.btn.color.orange:hover{background: #d35400;}
+      .btn.color.peterriver:hover,.btn.color.blue:hover{background: #2980b9;}
+      .btn.color.alizarin:hover,.btn.color.red:hover{background: #c0392b;}
+      .btn.color.amethyst:hover,.btn.color.purple:hover{background: #8e44ad;}
+      .btn.color.clouds:hover,.btn.color.gray:hover{background: #bdc3c7;color:#fff;}
+      .btn.color.wetasphalt:hover,.btn.color.dark:hover{background: #2c3e50;}
+      .btn.color.concrete:hover,.btn.color.gray-dark:hover{background: #7f8c8d;}
+
+      input.input-text{
+        border-radius: 4px;
+        border: 1px solid #CCC;
+        background: #F9F9F9;
+        color:#303030;
+        padding: 10px;
+        text-decoration: none;
+        text-align: left;
+        font-size: 1em;
+      }
+    </style>
+    
+</head>
+<body>
+    <div style="text-align: center;">
+    <h1>돌려돌려 메뉴판</h1>
+    <form action="" class="form-control nexto color blue">
+        <input id="menu-input" type="text" name="subscribe-box" placeholder="메뉴명" class="input-text" value="한식" onkeypress="if(event.keyCode==13) {setMenuWheel(); return false;}" />
+        <input id="radius-input" type="text" name="subscribe-box" placeholder="거리(m)" class="input-text" value="3000" onkeypress="if(event.keyCode==13) {setMenuWheel(); return false;}" />
+        <button id="menu-btn" type="button" class="btn color blue">메뉴판세팅</button>
+    </form>
+    </div> 
+    <div id="chart">
+        <div id="question"><h1></h1></div>
+    </div>
+    
+    <script src="jquery.min.js"></script>
+    <script src="d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        var padding = {top:20, right:40, bottom:0, left:0},
+            w = 500 - padding.left - padding.right,
+            h = 500 - padding.top  - padding.bottom,
+            r = Math.min(w, h)/2,
+            rotation = 0,
+            oldrotation = 0,
+            picked = 100000,
+            oldpick = [],
+            color = d3.scale.category20();//category20c()
+            //randomNumbers = getRandomNumbers();
+
+        //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
+
+        var data = [];
+        var setMenuWheel = function() {
+            if (!$('#menu-input').val()) {
+                alert('메뉴명을 입력해주세요!');
+                return;
+            }
+
+            if (!$('#radius-input').val()) {
+                $('#radius-input').val('3000');
+            }
+
+            $('#chart').html('<div id="question"><h1></h1></div>');
+
+            var query = $('#menu-input').val();
+            var radius = $('#radius-input').val();
+
+            $.ajax({
+                url: "https://dapi.kakao.com/v2/local/search/keyword.json",
+                headers: {
+                  'Authorization':'KakaoAK 43f76bd897b4b8ddb3c052a345be1592'
+                },
+                data: {
+                  x: "126.96097087510286",
+                  y: "37.603470276656665",
+                  radius: radius,
+                  category_group_code : "FD6",
+                  query: query
+                },
+                method: 'get',
+                dataType: 'json',
+                success: function (response) {
+                    data = [];
+                    $(response.documents).each(function(index, item) {
+                        data.push({label: item.place_name, value: 1, question: '당첨!<br/><a href="' + item.place_url + '" target="_blank" style="text-decoration:none; color: #2A80B9">' + item.place_name + '</a>'});
+                    });
+
+                    data = data.sort(() => Math.random() - 0.5);
+
+                    var svg = d3.select('#chart')
+                        .append("svg")
+                        .data([data])
+                        .attr("width",  w + padding.left + padding.right)
+                        .attr("height", h + padding.top + padding.bottom);
+
+                    var container = svg.append("g")
+                        .attr("class", "chartholder")
+                        .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
+
+                    var vis = container
+                        .append("g");
+                        
+                    var pie = d3.layout.pie().sort(null).value(function(d){return 1;});
+
+                    // declare an arc generator function
+                    var arc = d3.svg.arc().outerRadius(r);
+
+                    // select paths, use arc generator to draw
+                    var arcs = vis.selectAll("g.slice")
+                        .data(pie)
+                        .enter()
+                        .append("g")
+                        .attr("class", "slice");
+                        
+
+                    arcs.append("path")
+                        .attr("fill", function(d, i){ return color(i); })
+                        .attr("d", function (d) { return arc(d); });
+
+                    // add the text
+                    arcs.append("text").attr("transform", function(d){
+                            d.innerRadius = 0;
+                            d.outerRadius = r;
+                            d.angle = (d.startAngle + d.endAngle)/2;
+                            return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
+                        })
+                        .attr("text-anchor", "end")
+                        .text( function(d, i) {
+                            return data[i].label;
+                        });
+
+                    container.on("click", spin);
+
+
+                    function spin(d){
+                        
+                        container.on("click", null);
+
+                        //all slices have been seen, all done
+                        console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
+                        if(oldpick.length == data.length){
+                            console.log("done");
+                            container.on("click", null);
+                            return;
+                        }
+
+                        var  ps       = 360/data.length,
+                             pieslice = Math.round(1440/data.length),
+                             rng      = Math.floor((Math.random() * 1440) + 360);
+                            
+                        rotation = (Math.round(rng / ps) * ps);
+                        
+                        picked = Math.round(data.length - (rotation % 360)/ps);
+                        picked = picked >= data.length ? (picked % data.length) : picked;
+
+
+                        if(oldpick.indexOf(picked) !== -1){
+                            d3.select(this).call(spin);
+                            return;
+                        } else {
+                            oldpick.push(picked);
+                        }
+
+                        rotation += 90 - Math.round(ps/2);
+
+                        vis.transition()
+                            .duration(3000)
+                            .attrTween("transform", rotTween)
+                            .each("end", function(){
+
+                                //mark question as seen
+                                // d3.select(".slice:nth-child(" + (picked + 1) + ") path")
+                                    // .attr("fill", "#111");
+
+                                //populate question
+                                d3.select("#question h1")
+                                    .html(data[picked].question);
+
+                                oldrotation = rotation;
+                            
+                                container.on("click", spin);
+                            });
+                    }
+
+                    //make arrow
+                    svg.append("g")
+                        .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
+                        .append("path")
+                        .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+                        .style({"fill":"black"});
+
+                    //draw spin circle
+                    container.append("circle")
+                        .attr("cx", 0)
+                        .attr("cy", 0)
+                        .attr("r", 60)
+                        .style({"fill":"white","cursor":"pointer"});
+
+                    //spin text
+                    container.append("text")
+                        .attr("x", 0)
+                        .attr("y", 15)
+                        .attr("text-anchor", "middle")
+                        .text("돌리자")
+                        .style({"font-weight":"bold", "font-size":"30px"});
+                    
+                    
+                    function rotTween(to) {
+                      var i = d3.interpolate(oldrotation % 360, rotation);
+                      return function(t) {
+                        return "rotate(" + i(t) + ")";
+                      };
+                    }
+                    
+                    
+                    function getRandomNumbers(){
+                        var array = new Uint16Array(1000);
+                        var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
+
+                        if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
+                            window.crypto.getRandomValues(array);
+                            console.log("works");
+                        } else {
+                            //no support for crypto, get crappy random numbers
+                            for(var i=0; i < 1000; i++){
+                                array[i] = Math.floor(Math.random() * 100000) + 1;
+                            }
+                        }
+
+                        return array;
+                    }
+                }
+            });
+        };    
+
+        $(function() {
+            setMenuWheel();
+            $('#menu-btn').click(function() {
+                setMenuWheel();
+            });
+        });
+    </script>
+</body>
+</html>
